@@ -136,10 +136,20 @@ async def conn_han(client):
     for i in topics:
         await client.subscribe(i,1)
     hpfuncs.logprint("subscribtion done")
+    # List all the topics we subscribed to
+    string_of_topics = ""
+    for x in topics:
+        string_of_topics = string_of_topics + x + " "
+
+    hpfuncs.logprint("The following topics were subscribed to: ")
+    hpfuncs.logprint(string_of_topics)
+
+    
 
 # first run to collect values and run watchdog
 async def firstrun_and_watchdog(client, version):
     firstrun = False
+    # Why is there a 10 second delay here?
     await asyncio.sleep(10)
     if firstrun == False:
         await client.publish(config['maintopic'] + '/doinit', "firstrun")
@@ -154,6 +164,7 @@ async def firstrun_and_watchdog(client, version):
         hpfuncs.logprint("running watchdog..")
 
 async def process_event(client, event, event_data):
+    hpfuncs.logprint("Received the following event: " + event)
     if(event == "187"):
         roomtemp = int_to_signed(event_data)
         await client.publish(config['maintopic'] + '/roomtemp', str(roomtemp), qos=1)
@@ -177,6 +188,8 @@ async def process_event(client, event, event_data):
         if (outdoortemp != 127):
             # 127 seems to be "temperature not available"
             await client.publish(config['maintopic'] + '/outdoortemp', str(outdoortemp), qos=1)
+        if (outdoortemp == 127):
+            hpfuncs.logprint("Temperature reading not available.")
 
 
 async def receiver(client):

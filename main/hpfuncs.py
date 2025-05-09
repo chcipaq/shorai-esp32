@@ -123,7 +123,8 @@ def queryall():
      bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,190,246))
      bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,203,233))
      bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,136,44))
-     #bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,134,46))
+     # Why is the line after this commented out???
+     #bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,134,46)) 
      bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,144,36))
      bootlist.append((2,0,3,16,0,0,6,1,48,1,0,1,148,32))
      return bootlist    
